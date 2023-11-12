@@ -1,23 +1,31 @@
 <header
-  class="px-0 sm:px-8 flex items-center shadow-md sticky top-0 text-stone-700 z-50 bg-secondary"
+  class="px-0 sm:px-8 flex items-center shadow-md sticky top-0 text-stone-700 z-50 h-14 sm:h-16 bg-secondary"
 >
   <div class="flex items-center justify-between mx-auto w-full">
     <div class="flex items-center gap-4">
       <img src="assets/images/logo/milanoVice-logo.svg" class="h-10" />
-      <nav class="sm:flex items-center hidden ml-8">
-        <ul class="flex items-center gap-4">
-          <li
-            *ngFor="let route of routes()"
-            [routerLink]="route.path"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="link-item"
-          >
-            <a class="link-item">{{ route.label }}</a>
-          </li>
-        </ul>
+      <nav
+        class="primary-navigation sm:flex hidden ml-8"
+        mat-tab-nav-bar
+        [tabPanel]="tabPanel"
+      >
+        @for (route of routes(); track route.path) {
+        <a
+          mat-tab-link
+          (click)="updateActiveRoute(route)"
+          [active]="rla.isActive"
+          [routerLink]="route.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          #rla="routerLinkActive"
+        >
+          {{ route.label }}
+        </a>
+        }
       </nav>
+      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
     </div>
+
     <div
       class="rounded-full px-6 py-2 bg-stone-50 text-sm font-bold hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300 active:shadow-none active:translate-y-[2px] active:scale-95 cursor-pointer"
     >

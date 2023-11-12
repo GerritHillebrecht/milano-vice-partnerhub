@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./assets/fonts/geist/geist.font.scss";
+
 :root {
   --clr-primary: #ff2a9d;
   --clr-secondary: #ffe20c;
@@ -11,6 +13,8 @@
 
 * {
   -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "rlig", "calt" 0;
 
   &::selection {
     background-color: var(--clr-primary);
@@ -24,5 +28,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Geist, Roboto, "Helvetica Neue", sans-serif;
 }

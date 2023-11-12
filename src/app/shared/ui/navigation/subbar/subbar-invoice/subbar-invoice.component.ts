@@ -37,6 +37,7 @@ import {
   ],
   templateUrl: './subbar-invoice.component.html',
   styleUrl: './subbar-invoice.component.scss',
+  host: { ngSkipHydration: 'true' },
 })
 export class SubbarInvoiceComponent {
   protected readonly downloadIcon = signal(faDownload);

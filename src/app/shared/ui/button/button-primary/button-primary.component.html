@@ -1,0 +1,22 @@
+@if (btnOptions(); as btnOptions) {
+<button
+  [type]="btnOptions.type"
+  class="px-6 flex items-center gap-3 rounded-full border h-12 font-medium select-none"
+  [ngClass]="{
+    'border-stone-200 text-stone-600 hover:bg-stone-100': btnOptions.btnType === 'primary',
+    'border-stone-800 bg-stone-800 text-stone-50 hover:bg-stone-700': btnOptions.btnType === 'secondary',
+  }"
+  matRipple
+  style="
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px;
+  "
+>
+  <span>
+    <ng-content></ng-content>
+  </span>
+
+  @if (btnOptions.icon) {
+  <fa-icon [icon]="btnOptions.icon"></fa-icon>
+  }
+</button>
+}

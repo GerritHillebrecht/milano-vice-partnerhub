@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "milano-vice-partnerhub",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

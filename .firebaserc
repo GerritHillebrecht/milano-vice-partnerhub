@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "milano-vice-abrechnung": {
+      "hosting": {
+        "milano-vice-partnerhub": [
+          "milano-vice-abrechnung"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "milano-vice-abrechnung"
+  }
+}

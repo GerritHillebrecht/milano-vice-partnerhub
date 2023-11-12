@@ -1,1 +1,12 @@
-<p>landing works!</p>
+<main class="max-w-7xl 3xl:max-w-[1440px] mx-auto">
+  <div class="grid grid-cols-[2fr,1fr] gap-8 pt-14">
+    <div class="rounded-xl border py-28 px-10">
+      <app-button-primary
+        [options]="btnOptions()"
+        [routerLink]="['/', 'invoice']"
+        >Zur Abrechnung</app-button-primary
+      >
+    </div>
+    <div class="rounded-xl border py-28"></div>
+  </div>
+</main>

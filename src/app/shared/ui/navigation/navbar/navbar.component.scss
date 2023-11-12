@@ -1,7 +1,15 @@
-.link-item {
-  @apply px-4 h-14 flex items-center font-medium cursor-pointer;
+// .link-item {
+//   @apply px-4 h-14 flex items-center font-medium cursor-pointer;
 
-  &.active {
-    @apply border-b-[3px] border-primary font-bold;
+//   &.active {
+//     @apply border-b-[3px] border-primary font-bold;
+//   }
+// }
+
+.primary-navigation {
+  .mat-mdc-tab-link {
+    font-family: Geist;
+    letter-spacing: normal;
+    font-weight: 500;
   }
 }
