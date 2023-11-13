@@ -12,7 +12,6 @@
         @for (route of routes(); track route.path) {
         <a
           mat-tab-link
-          (click)="updateActiveRoute(route)"
           [active]="rla.isActive"
           [routerLink]="route.path"
           routerLinkActive="active"

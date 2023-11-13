@@ -19,6 +19,6 @@ export default class InvoiceComponent implements OnInit {
       collectionData(collectionRef, { idField: 'id' })
     );
 
-    console.log(data);
+    console.log('invoice', data);
   }
 }

@@ -46,8 +46,12 @@ export class SubbarInvoiceComponent {
   protected readonly dateSelectionService = inject(DateSelectionService);
 
   protected range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
+    start: new FormControl<Date>(
+      this.dateSelectionService.selectedTimePeriod().from
+    ),
+    end: new FormControl<Date>(
+      this.dateSelectionService.selectedTimePeriod().to
+    ),
   });
 
   ngOnInit(): void {

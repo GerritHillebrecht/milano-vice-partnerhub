@@ -2,14 +2,14 @@ import {
   ApplicationConfig,
   isDevMode,
   importProvidersFrom,
+  LOCALE_ID,
 } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideServiceWorker } from '@angular/service-worker';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import {
   getAnalytics,
@@ -17,15 +17,23 @@ import {
   ScreenTrackingService,
   UserTrackingService,
 } from '@angular/fire/analytics';
+
 import {
-  initializeAppCheck,
-  ReCaptchaEnterpriseProvider,
-  provideAppCheck,
-} from '@angular/fire/app-check';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+  enableIndexedDbPersistence,
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+  provideFirestore,
+} from '@angular/fire/firestore';
 import { getMessaging, provideMessaging } from '@angular/fire/messaging';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+
+import localeDE from '@angular/common/locales/de';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeDE);
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -51,22 +59,19 @@ export const appConfig: ApplicationConfig = {
       ),
       provideAuth(() => getAuth()),
       provideAnalytics(() => getAnalytics()),
-      provideFirestore(() => getFirestore()),
+      provideFirestore(() =>
+        initializeFirestore(getApp(), {
+          localCache: persistentLocalCache({
+            tabManager: persistentMultipleTabManager(),
+          }),
+        })
+      ),
       provideMessaging(() => getMessaging()),
       providePerformance(() => getPerformance()),
       provideStorage(() => getStorage()),
-      // provideAppCheck(() => {
-      //   // TODO get a reCAPTCHA Enterprise here https://console.cloud.google.com/security/recaptcha?project=_
-      //   const provider = new ReCaptchaEnterpriseProvider(
-      //     '6LeHrQspAAAAABuif8NTViwJYN6T-gBeb_fieLXq'
-      //   );
-      //   return initializeAppCheck(undefined, {
-      //     provider,
-      //     isTokenAutoRefreshEnabled: true,
-      //   });
-      // }),
     ]),
     ScreenTrackingService,
     UserTrackingService,
+    { provide: LOCALE_ID, useValue: 'de-DE' },
   ],
 };
