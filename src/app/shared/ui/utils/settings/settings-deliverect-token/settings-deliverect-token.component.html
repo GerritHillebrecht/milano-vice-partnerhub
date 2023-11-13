@@ -1,0 +1,16 @@
+<fa-icon
+  size="xl"
+  [icon]="settingsIcon()"
+  [matMenuTriggerFor]="settingsMenu"
+  class="cursor-pointer"
+></fa-icon>
+<mat-menu #settingsMenu="matMenu" xPosition="before" class="max-w-none">
+  <form class="mx-4" [formGroup]="tokenForm" (click)="$event.stopPropagation()">
+    <p>
+      <strong>current refresh-token</strong>
+    </p>
+    <mat-form-field>
+      <input matInput formControlName="token" placeholder="Deliverect token" />
+    </mat-form-field>
+  </form>
+</mat-menu>

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
+import { SettingsDeliverectTokenComponent } from '../../utils/settings/settings-deliverect-token/settings-deliverect-token.component';
 
 export interface AppRoute {
   path: string;
@@ -11,7 +12,12 @@ export interface AppRoute {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatTabsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatTabsModule,
+    SettingsDeliverectTokenComponent,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   encapsulation: ViewEncapsulation.None,
