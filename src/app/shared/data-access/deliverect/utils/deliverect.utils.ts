@@ -1,4 +1,3 @@
-import { DeliverectOrderQueryOptions } from '../deliverect.service';
 import {
   DeliverectFetchOptions,
   defaultFetchOptions,
@@ -15,7 +14,7 @@ export const getRequestOptions = (token: string) => {
 };
 
 interface RequestParamsInput {
-  queryOptions: DeliverectOrderQueryOptions;
+  queryOptions: Partial<DeliverectFetchOptions>;
   DELIVERECT_API_URI: string;
 }
 
@@ -29,12 +28,24 @@ export const getRequestParams = ({
   DELIVERECT_API_URI,
   queryOptions,
 }: RequestParamsInput) => {
-  const { couriers } = {
+  const {
+    couriers: couriesMap,
+    startDate,
+    endDate,
+    page,
+    max_results,
+  } = {
     ...defaultFetchOptions,
     ...queryOptions,
   } as DeliverectFetchOptions;
 
-  const params = `{%22channel%22:{%22$in%22:[${couriers}]},%22account%22:{%22$in%22:[%2261605a08fd8070d72f202e21%22]},%22pickupTime%22:{%22$gt%22:%22${queryOptions.startDate}%22,%22$lt%22:%22${queryOptions.endDate}%22}}`;
+  const couriers = couriesMap.map((courier) => {
+    return couries[courier];
+  });
 
-  return `${DELIVERECT_API_URI}/orders?limit=100&offset=0&sort=created_at&sort_direction=desc`;
+  const params = `{%22channel%22:{%22$in%22:[${couriers}]},%22account%22:{%22$in%22:[%2261605a08fd8070d72f202e21%22]},%22pickupTime%22:{%22$gt%22:%22${startDate}%22,%22$lt%22:%22${endDate}%22}}`;
+  const path = `https://api.deliverect.com/orders?page=${page}&cursor=new&where=${params}&max_results=${max_results}&useFastCount=true`;
+
+  return path;
+  // return `${DELIVERECT_API_URI}/orders/${params}`;
 };

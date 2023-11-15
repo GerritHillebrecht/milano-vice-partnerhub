@@ -1,0 +1,31 @@
+.main-container-with-dent {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    aspect-ratio: 300 / 40;
+    background-image: url("assets/images/util/dent.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: -0.5px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 40px;
+    border-radius: 0.55rem;
+    height: 6px;
+    transform: translateX(-50%);
+    background-color: white;
+    z-index: 5;
+    opacity: 0.75;
+  }
+}

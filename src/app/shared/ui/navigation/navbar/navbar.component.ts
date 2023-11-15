@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
-import { SettingsDeliverectTokenComponent } from '../../utils/settings/settings-deliverect-token/settings-deliverect-token.component';
+import { SettingsDeliverectTokenComponent } from '../../utils/settings';
 
 export interface AppRoute {
   path: string;

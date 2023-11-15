@@ -18,7 +18,8 @@ import { faDownload, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import {
   DateSelectionService,
   TimePeriod,
-} from '../../../../service/date-selection/date-selection.service';
+} from '@shared/service/date-selection';
+import { LocalStorageService } from '@shared/service/localStorage';
 
 @Component({
   selector: 'app-subbar-invoice',
@@ -44,6 +45,7 @@ export class SubbarInvoiceComponent {
   protected readonly sendMailIcon = signal(faPaperPlane);
 
   protected readonly dateSelectionService = inject(DateSelectionService);
+  private readonly localStorageService = inject(LocalStorageService);
 
   protected range = new FormGroup({
     start: new FormControl<Date>(
@@ -65,6 +67,10 @@ export class SubbarInvoiceComponent {
   }
 
   onSelectionChange(period: TimePeriod) {
+    this.localStorageService.setItem(
+      'selected-date-period',
+      JSON.stringify(period)
+    );
     this.dateSelectionService.updateCurrentDatePeriod(period);
   }
 }

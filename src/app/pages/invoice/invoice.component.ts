@@ -1,24 +1,45 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faChartSimple,
+  faReceipt,
+  faTableList,
+} from '@fortawesome/free-solid-svg-icons';
+import { DeliverectService } from '@shared/data-access/deliverect';
+import { PlatformDetectionService } from '@shared/service/platform';
+import { ProgressBoxesComponent } from '@shared/ui/progress';
+import { TicketComponent } from '@shared/ui/ticket';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    FontAwesomeModule,
+    TicketComponent,
+    ProgressBoxesComponent,
+  ],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.scss',
 })
 export default class InvoiceComponent implements OnInit {
-  private readonly db = inject(Firestore);
+  protected readonly tabIconInvoice = signal(faReceipt);
+  protected readonly tabIconList = signal(faTableList);
+  protected readonly tabIconAnalytics = signal(faChartSimple);
+
+  private readonly platformDetectionService = inject(PlatformDetectionService);
+  private readonly dataAccess = inject(DeliverectService);
 
   async ngOnInit(): Promise<void> {
-    const collectionRef = collection(this.db, 'invoices');
-    const data = await firstValueFrom(
-      collectionData(collectionRef, { idField: 'id' })
-    );
-
-    console.log('invoice', data);
+    if (this.platformDetectionService.isPlatformBrowser) {
+      const orders = await firstValueFrom(
+        this.dataAccess.getDeliverectOrders({})
+      );
+      console.log('orders', orders);
+    }
   }
 }

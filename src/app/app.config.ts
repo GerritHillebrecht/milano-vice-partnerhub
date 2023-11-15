@@ -32,6 +32,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 
 import localeDE from '@angular/common/locales/de';
 import { registerLocaleData } from '@angular/common';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 registerLocaleData(localeDE);
 
@@ -40,6 +41,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withViewTransitions()),
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

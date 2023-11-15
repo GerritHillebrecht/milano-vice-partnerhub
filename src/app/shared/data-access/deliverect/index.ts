@@ -1,4 +1,1 @@
-export {
-  DeliverectService,
-  DeliverectOrderQueryOptions as DeliverectOrderOptions,
-} from './deliverect.service';
+export { DeliverectService } from './deliverect.service';

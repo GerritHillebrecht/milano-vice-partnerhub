@@ -1,7 +1,8 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/de';
+import { LocalStorageService } from '../localStorage';
 dayjs.locale('de');
 
 export type Dayjs = dayjs.Dayjs;
@@ -12,6 +13,7 @@ export type TimePeriod = { label: string; from: Date; to: Date };
 })
 export class DateSelectionService {
   readonly currentDate = signal<Dayjs>(dayjs());
+  private readonly localStorage = inject(LocalStorageService);
 
   readonly timeperiods = computed<TimePeriod[]>(() => {
     const today = this.currentDate().date();
@@ -59,7 +61,11 @@ export class DateSelectionService {
       .sort((a, b) => b.from.getTime() - a.from.getTime());
   });
 
-  readonly selectedTimePeriod = signal<TimePeriod>(this.timeperiods()[0]);
+  readonly selectedTimePeriod = signal<TimePeriod>(
+    this.localStorage.getItem('selected-date-period')
+      ? JSON.parse(this.localStorage.getItem('selected-date-period') as string)
+      : this.timeperiods()[0]
+  );
 
   readonly currentMonth = computed<string>(() =>
     this.currentDate().format('MMMM')

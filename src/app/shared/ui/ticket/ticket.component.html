@@ -1,0 +1,18 @@
+<div class="flex items-center gap-6 pb-4">
+  <img src="assets/images/logo/milano-logo-transparent.png" class="h-16" />
+  <div>
+    <h1>Dein Auszahlungsticket</h1>
+    <p class="italic text-xs">
+      Bei den angeführten Daten handelt es sich um vorläufige Werte, die
+      zunächst geprüft und freigegeben werden müssen.
+    </p>
+  </div>
+</div>
+<app-ticket-divider />
+<code>
+  <pre>
+        {{ orders() | async | json }}
+
+    </pre
+  >
+</code>
