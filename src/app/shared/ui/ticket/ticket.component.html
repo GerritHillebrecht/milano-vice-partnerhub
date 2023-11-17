@@ -1,7 +1,12 @@
-<div class="flex items-center gap-6 pb-4">
+<div class="flex items-center gap-6">
   <img src="assets/images/logo/milano-logo-transparent.png" class="h-16" />
   <div>
-    <h1>Dein Auszahlungsticket</h1>
+    <p class="text-sm uppercase tracking-[0.2em] font-black text-[var(--clr-tertiary)] font-GeistMono">Deine</p>
+    <h1
+      class="text-brutalism-shadow text-3xl text-primary uppercase font-black tracking-wider"
+    >
+      Auszahlung
+    </h1>
     <p class="italic text-xs">
       Bei den angeführten Daten handelt es sich um vorläufige Werte, die
       zunächst geprüft und freigegeben werden müssen.
@@ -9,10 +14,4 @@
   </div>
 </div>
 <app-ticket-divider />
-<code>
-  <pre>
-        {{ orders() | async | json }}
-
-    </pre
-  >
-</code>
+{{ revenue() | async | currency : "€" }}

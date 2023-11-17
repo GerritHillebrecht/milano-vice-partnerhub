@@ -8,6 +8,7 @@ import {
   faTableList,
 } from '@fortawesome/free-solid-svg-icons';
 import { DeliverectService } from '@shared/data-access/deliverect';
+import { DateSelectionService } from '@shared/service/date-selection';
 import { PlatformDetectionService } from '@shared/service/platform';
 import { ProgressBoxesComponent } from '@shared/ui/progress';
 import { TicketComponent } from '@shared/ui/ticket';
@@ -31,15 +32,13 @@ export default class InvoiceComponent implements OnInit {
   protected readonly tabIconList = signal(faTableList);
   protected readonly tabIconAnalytics = signal(faChartSimple);
 
-  private readonly platformDetectionService = inject(PlatformDetectionService);
   private readonly dataAccess = inject(DeliverectService);
+  protected readonly dateSelectionService = inject(DateSelectionService);
 
   async ngOnInit(): Promise<void> {
-    if (this.platformDetectionService.isPlatformBrowser) {
-      const orders = await firstValueFrom(
-        this.dataAccess.getDeliverectOrders({})
-      );
-      console.log('orders', orders);
-    }
+    const orders = await firstValueFrom(
+      this.dataAccess.getDeliverectOrders({})
+    );
+    console.log('orders', orders);
   }
 }

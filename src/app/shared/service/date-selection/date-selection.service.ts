@@ -61,11 +61,7 @@ export class DateSelectionService {
       .sort((a, b) => b.from.getTime() - a.from.getTime());
   });
 
-  readonly selectedTimePeriod = signal<TimePeriod>(
-    this.localStorage.getItem('selected-date-period')
-      ? JSON.parse(this.localStorage.getItem('selected-date-period') as string)
-      : this.timeperiods()[0]
-  );
+  readonly selectedTimePeriod = signal<TimePeriod>(this.timeperiods()[0]);
 
   readonly currentMonth = computed<string>(() =>
     this.currentDate().format('MMMM')

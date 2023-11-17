@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { DeliverectOrdersResponse } from './model/deliverect.orders.model';
+import {
+  DeliverectOrder,
+  DeliverectOrdersResponse,
+} from './model/deliverect.orders.model';
 import { getRequestOptions, getRequestParams } from './utils/deliverect.utils';
 import { DeliverectTokenService } from './token/deliverect-token.service';
 import { DeliverectFetchOptions } from './utils/deliverect.defaults';
@@ -30,11 +33,11 @@ export class DeliverectService {
           map((response) => response._items),
           catchError((error) => {
             console.error(error);
-            return of([]);
+            return of([] as DeliverectOrder[]);
           })
         );
     }
 
-    return of([]);
+    return of([] as DeliverectOrder[]);
   }
 }

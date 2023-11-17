@@ -14,10 +14,10 @@ export class OrdersService {
   readonly loadingOrders = signal(false);
 
   readonly ordersDeliverect = computed(async () => {
-    const startDate = this.dateSelection
-      .selectedTimePeriod()
-      .from.toISOString();
-    const endDate = this.dateSelection.selectedTimePeriod().to.toISOString();
+    const { to, from } = this.dateSelection.selectedTimePeriod();
+
+    const startDate = from.toISOString();
+    const endDate = to.toISOString();
 
     return await firstValueFrom(
       this.dataAcess.getDeliverectOrders({

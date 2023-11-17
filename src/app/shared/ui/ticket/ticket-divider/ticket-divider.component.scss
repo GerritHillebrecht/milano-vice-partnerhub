@@ -1,0 +1,24 @@
+.holes {
+  position: relative;
+
+  --distance-border: -2.75rem;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 1.5rem;
+    aspect-ratio: 1;
+    background-color: rgb(245 245 244);
+    border-radius: 50%;
+    transform: translateY(calc(-50% + 1px));
+  }
+
+  &::before {
+    left: var(--distance-border);
+  }
+
+  &::after {
+    right: var(--distance-border);
+  }
+}
